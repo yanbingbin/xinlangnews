@@ -17,7 +17,7 @@
           <img src="../../assets/loading.svg" alt="">
         </div>
         <carousel v-show="this.$store.state.channelIndex === 0"></carousel>
-        <div class="section" v-for="(newsItem, index) in getNews" @click="toNewsDetail">
+        <div class="section" v-for="(newsItem, index) in getNews" @click="toNewsDetail(newsItem,index)">
           <div class="news">
             <div class="news-left">
               <img :src="newsItem.pic || require('../../assets/notFoundImg.jpg')" alt="">
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import carousel from '@/components/common/carousel'
+  import carousel from '@/components/index/carousel'
   export default{
     components: {
       carousel
@@ -238,6 +238,7 @@
   height: 62%;
   color: #404040;
   font-size: 18px;
+  line-height: 26px;
   overflow: hidden;
 }
 .news-message {

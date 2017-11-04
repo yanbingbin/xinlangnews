@@ -72,7 +72,7 @@
   .bullet {
     width: 100%;
     position: absolute;
-    top: 7rem;
+    top: 6.8rem;
     margin: 0 auto;
     text-align: right;
     z-index: 1;

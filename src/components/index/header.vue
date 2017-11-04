@@ -22,6 +22,8 @@
 
 <style scoped>
   .header{
+    position: fixed;
+    top: 0;
     width: 100%;
     height:1.2rem;
     background-color: #0994ec;
