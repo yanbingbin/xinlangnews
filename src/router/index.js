@@ -7,7 +7,7 @@ import carousel from '@/components/index/carousel'
 import nav from '@/components/index/nav'
 import channelManage from '@/components/channelManage/index'
 import detail from '@/components/detail/index'
-import siderbar from '@/components/index/siderbar'
+import collection from '@/components/collection/index'
 
 Vue.use(Router)
 
@@ -43,9 +43,9 @@ export default new Router({
       name: 'detail',
       component: detail
     },{
-      path: '/siderbar',
-      name: 'siderbar',
-      component: siderbar
+      path: '/collection',
+      name: 'collection',
+      component: collection
     }
   ],
   scrollBehavior (to, from, savedPosition) {
