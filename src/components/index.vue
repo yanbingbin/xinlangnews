@@ -2,6 +2,7 @@
   <div>
     <v-header></v-header>
     <v-nav></v-nav>
+    <v-siderbar v-show="showSiderbar"></v-siderbar>
   </div>
 </template>
 
@@ -18,10 +19,13 @@
           vNav,
           vSiderbar
         },
-        methods: {}
+        computed: {
+            showSiderbar() {
+                return this.$store.state.showSidebar
+            }
+        }
     }
 </script>
 
-<style>
-
+<style scoped>
 </style>

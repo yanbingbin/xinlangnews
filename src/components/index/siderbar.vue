@@ -1,28 +1,28 @@
 <template>
   <div>
-    <div class="mask"></div>
+    <div class="mask" @click="hideSiderbar"></div>
     <transition name="fade">
-      <div class="self-info">
-         <div class="self-content">
+      <div class="self-info" v-if="showLogin">
+         <div class="self-content" v-show="showContent">
           <div class="content-header">
             <div class="avator"><img src="../../assets/avator.jpg" alt=""></div>
             <span>Progress is not created by contented people.</span>
           </div>
           <div class="self-center">
             <ul>
-              <li><img src="../../assets/collection.png" alt=""><a href=""><span>我的收藏</span></a></li>
+              <router-link to="/collection"><li><img src="../../assets/collection.png" alt=""><a href=""><span>我的收藏</span></a></li></router-link>
               <li><img src="../../assets/history.png" alt=""><a href=""><span>浏览历史</span></a></li>
-              <li><img src="../../assets/info.png" alt=""><a href=""><span>个人中心</span></a></li>
-              <li><img src="../../assets/about.png" alt=""><a href=""><span>关于</span></a></li>
-              <li><img src="../../assets/cancel.png" alt=""><a href=""><span>注销</span></a></li>
+              <router-link to="/msg"><li><img src="../../assets/info.png" alt=""><a href=""><span>个人中心</span></a></li></router-link>
+              <li @click="showAbout"><img src="../../assets/about.png" alt=""><a href=""><span>关于</span></a></li>
+              <li @click="cancel"><img src="../../assets/cancel.png" alt=""><a href=""><span>注销</span></a></li>
             </ul>
           </div>
          </div>
-         <div class="login">
+         <div class="login" v-show="showLoginCenter">
           <div class="login-content">
-            <input type="text">
-            <input type="password">
-            <button>登录</button>
+            <input type="text" placeholder="请输入用户名">
+            <input type="password" placeholder="请输入密码">
+            <button @click="clickLogin">登录</button>
             <div class="register">
               <span>立即注册</span>
               <span>忘记密码</span>
@@ -37,7 +37,39 @@
 
 <script>
     export default{
-        methods: {}
+        data() {
+          return {
+            showContent : true,
+            showLoginCenter : false
+          }
+        },
+        created() {
+          this.$store.commit('showLogin',false)
+        },
+        methods: {
+          hideSiderbar() {
+            this.$store.commit('showSiderbar',false)
+            this.$store.commit('showLogin',false)
+          },
+          showAbout() {
+            this.$store.commit('showAbout',true)
+            this.$store.commit('showSiderbar',false)
+            this.$store.commit('showLogin',false)
+          },
+          cancel() {
+            this.showContent = false
+            this.showLoginCenter = true
+          },
+          clickLogin() {
+            this.showContent = true
+            this.showLoginCenter = false
+          }
+        },
+        computed: {
+            showLogin() {
+                return this.$store.state.showLogin
+            }
+        }
     }
 </script>
 
@@ -49,7 +81,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,.8);
-  z-index: 100;
+  z-index: 101;
 }
 .self-info {
   position: fixed;
@@ -66,7 +98,10 @@
   transition: all .5s ease;
 }
 .fade-enter {
-  transiform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.fade-leave {
+  transform: translateX(100%);
 }
 .self-content, .login {
   width: 90%;

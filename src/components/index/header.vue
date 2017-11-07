@@ -10,8 +10,9 @@
   export default{
       methods:{
         showInfo() {
-          this.$store.state.commit('showSiderbar',true)
-          this.$store.state.commit('showLogin',true)
+            console.log(1)
+          this.$store.commit('showSiderbar',true)
+          this.$store.commit('showLogin',true)
         },
         toSearch() {
             this.$router.push("/search")
@@ -34,7 +35,7 @@
     font-size:.67rem;
     font-weight: 600;
     letter-spacing: 4px;
-    z-index:999;
+    z-index:100;
   }
   img {
     width: .67rem;
