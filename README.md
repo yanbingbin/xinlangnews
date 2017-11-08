@@ -2,9 +2,12 @@
 
 > a singlePage application
 
-## Build Setup
+## 使用步骤
 
 ``` bash
+# 下载
+git clone 
+
 # install dependencies
 npm install
 
@@ -27,12 +30,20 @@ npm run e2e
 npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# 技术栈
 
-项目中遇到的问题: 跨域问题,调用数据接口时,由于浏览器的同源策略,存在跨域问题,
-   由于服务端我不能访问到,所以不能采用cores(跨域资源共享):在服务器端添加Header头信息,指定允许访问的源
-   header("Access-Control-Allow-Origin: http://需要跨域的网址");header("Access-Control-Allow-Credentials: true");
-   axios也不支持jsonp跨域,所以我使用了代理服务器(Proxy Server),它是一个网络中转站,可以将你的域名映射成你需要访问的域名,
+- vue2：基础框架
+- vue-router2：路由跳转
+- vuex：全局数据管理
+- es6: 采用部分es6特性，大大简化了写法
+- webpack：vue-cli基于webpack，修改了部分配置
+- axios：基于Promise的http库，用来请求数据
+- flex：弹性布局，在移动端兼容性较好，写各种布局非常方便
+- flexible.js： 移动端适配方案
+
+
+# 项目中遇到的问题:
+- 跨域问题,调用数据接口时,由于浏览器的同源策略,存在跨域问题,由于服务端我不能访问到,所以不能采用cores(跨域资源共享), axios也不支持jsonp跨域,所以我使用了代理服务器(Proxy Server),它是一个网络中转站,可以将你的域名映射成你需要访问的域名,
    这样一来,跨域问题就解决了,这样我们就可以开心的跨域请求数据了。
    又遇到了一个新问题，使用路由点击返回时，页面总是自动重新渲染，经过查阅，发现使用keep-alive标签包裹住router-view,<keep-alive>
     <router-view></router-view></keep-alive>,这样可以持久化数据连接，就不会触发重新渲染了
