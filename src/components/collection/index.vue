@@ -1,24 +1,24 @@
 <template>
   <div>
     <div class="header">
-      <img src="../../assets/back.png" alt="">
+      <img src="../../assets/back.png" @click="goback">
       <span>收藏</span>
       <span>隐藏</span>
     </div>
     <div class="news-content">
-      <div class="loading" v-show="isLoading">
-        <img src="../../assets/loading.svg" @click="goback">
-      </div>
       <div class="section" v-for="(item, index) in result">
-        <div class="news">
+        <div class="delete" @click="deleteCollection(item,index)">
+          <img src="../../assets/delete.png" >
+        </div>
+        <div class="news" @click="toDetail(item, index)">
           <div class="news-left">
-            <img :src="item.pic" alt="">
+            <img :src="item && item.pic || require('../../assets/notFoundImg.jpg')" alt="">
           </div>
           <div class="news-right">
-            <div class="news-title">{{item.title}}</div>
+            <div class="news-title">{{item && item.title}}</div>
             <div class="news-message">
-              <span>{{item.time}}</span>
-              <span>{{item.src}}</span>
+              <span>{{item && item.time}}</span>
+              <span>{{item && item.src}}</span>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@
 <script>
 export default {
   computed: {
-    collectionNews () {
+    result () {
       if(this.$store.state.collection) {
         return this.$store.state.collection
       }
@@ -41,19 +41,16 @@ export default {
       this.$router.go(-1)
     },
     toDetail (item, index) {
-      this.$router.push({name: 'collectDetail', params: {item : item, index : index}})
+      this.$router.push({name: 'collectionDetail', params: {item : item, index : index}})
     },
     deleteCollection (item, index) {
       this.$store.state.collection.splice(index, 1)
     }
-  },
-  computed: {
-
   }
 }
 </script>
 
-<style>
+<style scoped>
   .header {
     position: fixed;
     top: 0;
@@ -77,49 +74,38 @@ export default {
   .header span:nth-child(3) {
     opacity: 0;
   }
-
   .news-content {
-    margin-top: 2.5rem;
+    margin-top: 1.33rem;
   }
-  .loading {
-    position: fixed;
-    top: 2.4rem;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    text-align: center;
-    background-color: #fff;
-    z-index: 99;
-  }
-  .loading img {
-    width: 50px;
-    height: 50px;
-    margin-top: 30px;
-    animation: loading .6s linear infinite;
-  }
-  @keyframes loading {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+
   .section {
+    width: 94%;
+    height: 4.3rem;
+    margin: .3rem auto;
+  }
+  .delete {
     width: 100%;
-    height: 2.5rem;
-    border-bottom: 1px solid #ccc;
-    background-color:#000;
+    height: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .delete img {
+    width: .5rem;
+    height: .5rem;
   }
   .news {
-    height: 2.25rem;
-    /*box-sizing: border-box;*/
-    margin: 10px;
+    width: 100%;
+    height: 3rem;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: .12rem;
   }
   .news-left {
-    width: 2.8rem;
-    height: 100%;
+    width: 30%;
+    height: 90%;
     display: inline-block;
   }
   .news-left img {
@@ -127,23 +113,29 @@ export default {
     height: 100%;
   }
   .news-right {
-    flex: 1;
-    padding-left: 10px;
+    display: inline-block;
+    width: 64%;
+    height: 90%;
+    margin-left: .21rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .news-right .news-title {
+  .news-title {
     width: 100%;
-    height: 64%;
-    color: #404040;
-    font-size: 18px;
+    height: 54%;
     overflow: hidden;
+    font-size: 18px;
+    color: #404040;
   }
   .news-message {
     width: 100%;
-    height: 32%;
+    height: 36%;
+    font-size: 14px;
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
-    overflow: hidden;
-    white-space: nowrap;
+    color: #888;
   }
 </style>
 

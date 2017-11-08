@@ -10,11 +10,10 @@
           </div>
           <div class="self-center">
             <ul>
-              <router-link to="/collection"><li><img src="../../assets/collection.png" alt=""><a href=""><span>我的收藏</span></a></li></router-link>
-              <li><img src="../../assets/history.png" alt=""><a href=""><span>浏览历史</span></a></li>
-              <router-link to="/msg"><li><img src="../../assets/info.png" alt=""><a href=""><span>个人中心</span></a></li></router-link>
-              <li @click="showAbout"><img src="../../assets/about.png" alt=""><a href=""><span>关于</span></a></li>
-              <li @click="cancel"><img src="../../assets/cancel.png" alt=""><a href=""><span>注销</span></a></li>
+              <router-link to="/collection"><li><img src="../../assets/collection.png" alt=""><span>我的收藏</span></li></router-link>
+              <li><img src="../../assets/history.png" alt=""><span>浏览历史</span></li>
+              <router-link to="/selfInfo"><li><img src="../../assets/info.png" alt=""><span>个人中心</span></li></router-link>
+              <li @click="cancel"><img src="../../assets/cancel.png" alt=""><span>注销</span></li>
             </ul>
           </div>
          </div>
@@ -48,11 +47,6 @@
         },
         methods: {
           hideSiderbar() {
-            this.$store.commit('showSiderbar',false)
-            this.$store.commit('showLogin',false)
-          },
-          showAbout() {
-            this.$store.commit('showAbout',true)
             this.$store.commit('showSiderbar',false)
             this.$store.commit('showLogin',false)
           },
@@ -104,7 +98,7 @@
   transform: translateX(100%);
 }
 .self-content, .login {
-  width: 90%;
+  width: 70%;
   height: 100%;
 }
 .content-header {
@@ -144,6 +138,9 @@
 .self-center a {
   color: #000;
 }
+.login {
+  background-color: #fff;
+}
 .login-content {
   display: flex;
   flex-direction: column;
@@ -155,7 +152,7 @@
   height: 1rem;
   margin-bottom: .5rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 3px;
   color: #888;
 }
 .login-content button {
@@ -163,7 +160,8 @@
   height: 1rem;
   font-size: .4rem;
   letter-spacing: 10px;
-  border-radius: 5px;
+  border: 1px solid #0994ec;
+  border-radius: 3px;
   background-color: #0994ec;
   color: #fff;
 }
@@ -171,9 +169,10 @@
   width: 90%;
   height: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;;
   font-size: .3rem;
+  margin:10px;
 }
 .register span:last-child {
   color: #07a0ec;

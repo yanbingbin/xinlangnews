@@ -46,6 +46,7 @@
       this.$store.dispatch('getChannels')  // 拿到新闻频道数据
       this.$store.dispatch('getNews','头条')  // 加载头条对应得新闻数据
       this.$store.commit('loading',true)
+      console.log(1)
     },
     computed: {
       isLoading() {
@@ -83,7 +84,7 @@
           this.$store.commit('saveNewsIndex',index)
           this.$router.push('/detail')
           // 从收藏数组找该点击的新闻是否在收藏列表,来显示收藏的图形
-          if(JSON.stringify(this.$store.state.collection).indexOf(JSON.stringify(this.$store.state.news[this.$store.state.newsIndex]))) {
+          if(JSON.stringify(this.$store.state.collection).indexOf(JSON.stringify(this.$store.state.news[this.$store.state.newsIndex])) !== -1) {
               this.$store.commit('collectionImg',require('../../assets/collect.png'))
           } else {
               this.$store.commit('collectionImg',require('../../assets/like.png'))
@@ -244,9 +245,10 @@
 .news-message {
   width: 100%;
   height: 38%;
+  font-size: 12px;
+  color: #888;
   display: flex;
   align-items: flex-end;
-  color: #888;
   justify-content: space-between;
 }
 </style>

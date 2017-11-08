@@ -22,16 +22,15 @@ const store = new Vuex.Store({
     load: false,  // 切换时显示的加载动画状态
     showSidebar: false,  // 显示侧边栏
     showLogin: false,  // 显示登录
-    showAbout: false, // 显示关于个人
     collection: [],  // 收藏新闻列表
-    likeImg: require('./assets/like.png') // 点击切换收藏图标
+    likeImg: require('./assets/collect.png') // 点击切换收藏图标
   },
   mutations: {
     saveChannels(state,data){  // 保存获取的新闻频道
       state.channels = data
     },
     saveChannelsIndex(state,index) {  // 保存点击的频道的索引位置
-      state.channelsIndex = index
+      state.channelIndex = index
     },
     saveNews(state,data) {   // 保存得到该频道的数据
       state.news = data
@@ -65,14 +64,11 @@ const store = new Vuex.Store({
     },
     collectionImg(state,url) {  // 显示收藏新闻图片
       state.likeImg = url
-    },
-    showAbout(state,status) {  // 显示关于
-      state.showAbout = status
     }
   },
   actions: {    // actions其实只是普通的函数，正是因为不可以在mutation中进行异步操作才要action
     getChannels({commit}) {  // 调用数据接口拿到新闻频道
-      let url = '/api/channel?appkey=1353b251727262fb'
+      let url = '/api/channel?appkey=ca05a06b9221f5d1'
       return new Promise((resolve,reject) => {
         axios.get(url)
           .then(res => {
@@ -85,15 +81,11 @@ const store = new Vuex.Store({
       })
     },
     getNews({commit},channel) { // 通过传入新闻频道获取具体新闻
-      let url = '/api/get?channel='+channel+'&start=0&num=20&appkey=1353b251727262fb'
+      let url = '/api/get?channel='+channel+'&start=0&num=20&appkey=ca05a06b9221f5d1'
       return new Promise((resolve,reject) => {
         axios.get(url)
           .then(res => {
-            console.log(res.data.result.list)
             commit('saveNews',res.data.result.list)
-          })
-          .then(() => {
-            console.log(store.state.news)
           })
           .then(() => {
             store.state.load = false

@@ -2,17 +2,17 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/components/index'
 import header from '@/components/index/header'
-import search from '@/components/index/nav'
-import carousel from '@/components/index/carousel'
-import nav from '@/components/index/nav'
+import search from '@/components/search/index'
+import searchDetail from '@/components/search/detail'
 import channelManage from '@/components/channelManage/index'
 import detail from '@/components/detail/index'
 import collection from '@/components/collection/index'
+import collectionDetail from '@/components/collection/detail'
+import selfInfo from '@/components/selfInfo/index'
 
 Vue.use(Router)
 
 export default new Router({
-  mode:'history',
   routes: [
     {
       path: '/',
@@ -27,14 +27,6 @@ export default new Router({
       name: 'search',
       component: search
     },{
-      path: '/carousel',
-      name: 'carousel',
-      component: carousel
-    },{
-      path: '/nav',
-      name: 'nav',
-      component: nav
-    },{
       path: '/channelManage',
       name: 'channelManage',
       component: channelManage
@@ -46,13 +38,21 @@ export default new Router({
       path: '/collection',
       name: 'collection',
       component: collection
+    },{
+      path: '/collectionDetail',
+      name: 'collectionDetail',
+      component: collectionDetail
+    },{
+      path: '/searchDetail',
+      name: 'searchDetail',
+      component: searchDetail
+    },{
+      path: '/selfInfo',
+      name: 'selfInfo',
+      component: selfInfo
     }
   ],
   scrollBehavior (to, from, savedPosition) {
-    if(savedPosition) {
-      setTimeout(() => {
-        window.scrollTo(savedPosition.x, savedPosition.y)
-      }, 200)
-    }
+    return { x: 0, y: 0 }
   }
 })

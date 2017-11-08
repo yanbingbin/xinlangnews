@@ -42,7 +42,6 @@
         this.$store.state.activeIndex = 0
       },
       deleteChannel(channel,index) {
-//        console.log(this.$store.state.channels.length)
         if(this.$store.state.channels.length > 1) {
           this.$store.commit('decrementChannels',index)
           this.deleteChannelArr.push(channel)

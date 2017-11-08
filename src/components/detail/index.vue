@@ -6,14 +6,14 @@
       <img :src="getImgSrc" @click="addCollection" alt="">
     </div>
     <div class="content">
-      <div class="container">
-        <div class="title">{{news.title}}</div>
+      <div class="container">  <!-- 防止报错 newsInfo && newsInfo.title-->
+        <div class="title">{{newsInfo && newsInfo.title}}</div>
         <div class="info">
-          <span>{{news.time}}</span>
-          <span>{{news.src}}</span>
+          <span>{{newsInfo && newsInfo.time}}</span>
+          <span>{{newsInfo && newsInfo.src}}</span>
         </div>
-        <img :src="news.pic || require('../../assets/notFoundImg.jpg')" alt="">
-        <div class="news-content" v-html="news.content"></div>
+        <img :src="newsInfo && newsInfo.pic || require('../../assets/notFoundImg.jpg')" alt="">
+        <div class="news-content" v-html="newsInfo && newsInfo.content"></div>
       </div>
 
     </div>
@@ -26,7 +26,7 @@
            console.log(this.$store.state.news[this.$store.state.newsIndex])
         },
         computed: {
-          news() {
+          newsInfo() {
               return this.$store.state.news[this.$store.state.newsIndex]
           },
           getImgSrc() {
@@ -37,17 +37,15 @@
           addCollection() {
               if(this.$store.state.likeImg == require("../../assets/like.png")) {
                   this.$store.commit('collectionImg',require("../../assets/collect.png"))
-                  this.$store.commit('addCollection',this.news)
+                  this.$store.commit('addCollection',this.newsInfo)
               } else {
                   this.$store.commit('collectionImg',require("../../assets/like.png"))
-                  this.$store.commit('deleteCollection',this.news)
+                  this.$store.commit('deleteCollection',this.newsInfo)
+                console.log('delete')
               }
           },
           backToIndex() {
               this.$router.push('./')
-              this.$store.dispatch('getNews','头条')
-              this.$store.state.load = true
-              this.$store.state.activeIndex = 0
           }
         }
     }

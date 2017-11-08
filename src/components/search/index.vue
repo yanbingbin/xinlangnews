@@ -2,7 +2,7 @@
 	<div>
     <div class="search">
       <div class="header">
-        <img src="../../assets/back.png" alt="">
+        <img src="../../assets/back.png" @click="goback">
         <span>搜索</span>
         <span>隐藏</span>
       </div>
@@ -16,9 +16,9 @@
         <img src="../../assets/loading.svg" alt="">
       </div>
       <div class="section" v-for="(item, index) in result">
-        <div class="news">
+        <div class="news" @click="toSearchDetail(item)">
           <div class="news-left">
-            <img :src="item.pic" alt="">
+            <img :src="item.pic || require('../../assets/notFoundImg.jpg')" alt="">
           </div>
           <div class="news-right">
             <div class="news-title">{{item.title}}</div>
@@ -48,7 +48,7 @@
          this.isLoading = true
          this.result = ''
          if (keywords.trim()) {
-           this.$http.get('/api/search?keyword=' + keywords + '&appkey=' + 'appkey=1353b251727262fb')
+           this.$http.get('/api/search?keyword=' + keywords + '&appkey=ca05a06b9221f5d1')
              .then(res => {
                this.result = res.data.result.list
              })
@@ -139,7 +139,7 @@
   width: 100%;
   height: 2.5rem;
   border-bottom: 1px solid #ccc;
-  background-color:#000;
+  background-color:#fff;
 }
 .news {
   height: 2.25rem;
@@ -170,6 +170,8 @@
 .news-message {
   width: 100%;
   height: 32%;
+  font-size: 12px;
+  color: #888;
   display: flex;
   justify-content: space-between;
   overflow: hidden;
